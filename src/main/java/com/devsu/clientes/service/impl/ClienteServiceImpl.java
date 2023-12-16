@@ -14,67 +14,76 @@ import java.util.List;
 @Service
 public class ClienteServiceImpl implements ClienteService {
 
+    private final ClienteRepository clienteRepository;
+
     @Autowired
-    private ClienteRepository clienteRepository;
+    public ClienteServiceImpl(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
 
     @Override
     public Cliente guardarCliente(Cliente cliente) {
-        if(this.clienteRepository.findById(cliente.getId())
-                .isPresent()) throw new CustomHandlerException("Cliente con el ID: " + cliente.getId()
-                + " Ya se encuentra registrado");
-        try{
-            return this.clienteRepository.save(cliente);
-        }catch (DataIntegrityViolationException e) {
-            throw new SQLCustomException(e.getMessage(), e);
+        if (clienteRepository.existsById(cliente.getId())) {
+            throw new CustomHandlerException("Cliente con el ID: " + cliente.getId() + " ya se encuentra registrado");
         }
-        catch (Exception e){
+        try {
+            return clienteRepository.save(cliente);
+        } catch (DataIntegrityViolationException e) {
+            throw new SQLCustomException("Error de integridad de datos: " + e.getMessage(), e);
+        } catch (Exception e) {
             throw new CustomHandlerException("Error al guardar el cliente: " + e.getMessage());
         }
     }
 
     @Override
     public Cliente actualizarCliente(Cliente cliente) {
-        return this.clienteRepository.findById(cliente.getId())
+        return clienteRepository.findById(cliente.getId())
                 .map(clienteExistente -> {
-                    clienteExistente.setId(cliente.getId());
-                    clienteExistente.setClientId(cliente.getClientId());
-                    clienteExistente.setNombre(cliente.getNombre());
-                    clienteExistente.setApellidos(cliente.getApellidos());
-                    clienteExistente.setGenero(cliente.getGenero());
-                    clienteExistente.setEdad(cliente.getEdad());
-                    clienteExistente.setDireccion(cliente.getDireccion());
-                    clienteExistente.setTelefono(cliente.getTelefono());
-                    clienteExistente.setPassword(cliente.getPassword());
-                    clienteExistente.setEstado(cliente.getEstado());
+                    copiarPropiedadesCliente(clienteExistente, cliente);
+                    return clienteRepository.save(clienteExistente);
+                })
+                .orElseThrow(() -> new CustomHandlerException("Cliente no encontrado: " + cliente.getId()));
+    }
 
-                    return this.clienteRepository.save(clienteExistente);
-                }).orElseThrow(()-> new CustomHandlerException("Cliente no Encontrado: " +  cliente.getId()));
+    private void copiarPropiedadesCliente(Cliente existente, Cliente actualizado) {
+        //existente.setClientId(existente.getClientId());
+        existente.setNombre(actualizado.getNombre());
+        existente.setApellidos(actualizado.getApellidos());
+        existente.setGenero(actualizado.getGenero());
+        existente.setEdad(actualizado.getEdad());
+        existente.setDireccion(actualizado.getDireccion());
+        existente.setTelefono(actualizado.getTelefono());
+        existente.setPassword(actualizado.getPassword());
+        existente.setEstado(actualizado.getEstado());
     }
 
     @Override
     public Cliente obtenerClientePorId(Long id) {
-        return this.clienteRepository.findById(id).orElseThrow(
-                ()-> new CustomHandlerException("No se encotró al cliente con el ID: " + id));
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new CustomHandlerException("Cliente con el ID: " + id + " no encontrado"));
     }
 
     @Override
-    public Cliente obtenerClientePorClienteId(Long id) {
-        return this.clienteRepository.getClienteByClientId(id)
-                .orElseThrow(()-> new CustomHandlerException("Cliente con el id: " + id +  " No encontrado"));
+    public Cliente obtenerClientePorClienteId(Long clienteId) {
+        return clienteRepository.getClienteByClientId(clienteId)
+                .orElseThrow(() -> new CustomHandlerException("Cliente con el clienteId: " + clienteId + " no encontrado"));
     }
 
     @Override
     public List<Cliente> obtenerTodosClientes() {
-        List<Cliente> clienteList = this.clienteRepository.findAll();
-        if(clienteList.isEmpty()) throw new CustomHandlerException("No hay datos a mostrar");
-        return clienteList;
+        List<Cliente> clientes = clienteRepository.findAll();
+        if (clientes.isEmpty()) {
+            throw new CustomHandlerException("No hay clientes disponibles");
+        }
+        return clientes;
     }
 
     @Override
     public boolean eliminarCliente(Long id) {
-        Cliente cliente = this.clienteRepository.findById(id)
-                .orElseThrow(()-> new CustomHandlerException("Cliente no encontrado: " +  id));
-        this.clienteRepository.delete(cliente);
+        if (!clienteRepository.existsById(id)) {
+            throw new CustomHandlerException("Cliente con el ID: " + id + " no encontrado");
+        }
+        clienteRepository.deleteById(id);
         return true;
     }
 }

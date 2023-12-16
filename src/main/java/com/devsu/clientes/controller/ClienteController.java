@@ -17,44 +17,48 @@ import java.util.Map;
 @RequestMapping("/cliente")
 public class ClienteController {
 
-    @Autowired
-    private ClienteService clienteService;
+    private final ClienteService clienteService;
+
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> obtenerClientes(){
-        return new ResponseEntity<>(this.clienteService.obtenerTodosClientes(), HttpStatus.OK);
+    public ResponseEntity<List<Cliente>> obtenerClientes() {
+        List<Cliente> clientes = clienteService.obtenerTodosClientes();
+        return ResponseEntity.ok(clientes);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> obtenerClienteporId(@PathVariable Long id){
-        return new ResponseEntity<>(this.clienteService.obtenerClientePorId(id), HttpStatus.OK);
+    public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id) {
+        Cliente cliente = clienteService.obtenerClientePorId(id);
+        return ResponseEntity.ok(cliente);
     }
 
     @GetMapping("/client/{id}")
-    public ResponseEntity<Cliente> obtenerClienteporClienteId(@PathVariable Long id){
-        return new ResponseEntity<>(this.clienteService.obtenerClientePorClienteId(id), HttpStatus.OK);
+    public ResponseEntity<Cliente> obtenerClientePorClienteId(@PathVariable Long id) {
+        Cliente cliente = clienteService.obtenerClientePorClienteId(id);
+        return ResponseEntity.ok(cliente);
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> guardarCliente(@Valid @RequestBody Cliente cliente){
-        return new ResponseEntity<>(this.clienteService.guardarCliente(cliente), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity borrarCliente(@PathVariable Long id){
-
-        Map<String, Object> response = new HashMap<>();
-
-        if(this.clienteService.eliminarCliente(id)){
-            response.put("mensaje", "Cliente con el ID: "  + id + " Fue eliminado con exito");
-            response.put("timestamp", LocalDateTime.now());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Cliente> guardarCliente(@Valid @RequestBody Cliente cliente) {
+        Cliente clienteGuardado = clienteService.guardarCliente(cliente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteGuardado);
     }
 
     @PutMapping
-    public ResponseEntity<Cliente> actualizarCliente(@Valid @RequestBody Cliente cliente){
-        return new ResponseEntity<>(this.clienteService.actualizarCliente(cliente), HttpStatus.OK);
+    public ResponseEntity<Cliente> actualizarCliente(@Valid @RequestBody Cliente cliente) {
+        Cliente clienteActualizado = clienteService.actualizarCliente(cliente);
+        return ResponseEntity.ok(clienteActualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> borrarCliente(@PathVariable Long id) {
+        clienteService.eliminarCliente(id);
+        Map<String, Object> response = new HashMap<>();
+        response.put("mensaje", "Cliente con el ID: " + id + " fue eliminado con éxito");
+        response.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.ok(response);
     }
 }
