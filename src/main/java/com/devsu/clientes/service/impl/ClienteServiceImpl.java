@@ -88,7 +88,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public boolean añadirCuenta(Long idCliente, Long idCuenta) {
-        Cliente cliente = this.obtenerClientePorId(idCliente);
+        Cliente cliente = this.obtenerClientePorClienteId(idCliente);
         cliente.agregarCuenta(idCuenta);
         try{
             this.actualizarCliente(cliente);
@@ -100,7 +100,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public boolean eliminarCuenta(Long idCliente, Long idCuenta) {
-        Cliente cliente = this.obtenerClientePorId(idCliente);
+        Cliente cliente = this.obtenerClientePorClienteId(idCliente);
         cliente.removerCuenta(idCuenta);
         try{
             this.actualizarCliente(cliente);
