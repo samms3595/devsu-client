@@ -46,7 +46,6 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     private void copiarPropiedadesCliente(Cliente existente, Cliente actualizado) {
-        //existente.setClientId(existente.getClientId());
         existente.setNombre(actualizado.getNombre());
         existente.setApellidos(actualizado.getApellidos());
         existente.setGenero(actualizado.getGenero());
@@ -85,5 +84,29 @@ public class ClienteServiceImpl implements ClienteService {
         }
         clienteRepository.deleteById(id);
         return true;
+    }
+
+    @Override
+    public boolean añadirCuenta(Long idCliente, Long idCuenta) {
+        Cliente cliente = this.obtenerClientePorId(idCliente);
+        cliente.agregarCuenta(idCuenta);
+        try{
+            this.actualizarCliente(cliente);
+            return true;
+        }catch (Exception e){
+            throw new CustomHandlerException("Error al añadir cuenta");
+        }
+    }
+
+    @Override
+    public boolean eliminarCuenta(Long idCliente, Long idCuenta) {
+        Cliente cliente = this.obtenerClientePorId(idCliente);
+        cliente.removerCuenta(idCuenta);
+        try{
+            this.actualizarCliente(cliente);
+            return true;
+        }catch (Exception e){
+            throw new CustomHandlerException("Error al eliminar cuenta");
+        }
     }
 }

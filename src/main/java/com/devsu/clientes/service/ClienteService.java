@@ -12,4 +12,6 @@ public interface ClienteService {
     Cliente obtenerClientePorClienteId(Long id);
     List<Cliente> obtenerTodosClientes();
     boolean eliminarCliente(Long id);
+    boolean añadirCuenta(Long idCliente, Long idCuenta);
+    boolean eliminarCuenta(Long idCliente, Long idCuenta);
 }

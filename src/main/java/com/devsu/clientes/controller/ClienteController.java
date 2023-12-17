@@ -92,4 +92,32 @@ public class ClienteController {
         response.put("timestamp", LocalDateTime.now());
         return ResponseEntity.ok(response);
     }
+
+    @Operation(summary = "Eliminar cuenta del cliente", responses = {
+            @ApiResponse(responseCode = "201", description = "Cuenta Eliminada", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))),
+            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta / Bad Request", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class)))
+    })
+    @GetMapping("/delAccount/{idCliente}/{idCuenta}")
+    public ResponseEntity<Map<String, Object>> eliminarCuenta(@PathVariable Long idCliente, @PathVariable Long idCuenta){
+        clienteService.eliminarCuenta(idCliente, idCuenta);
+        Map<String, Object> response = new HashMap<>();
+        String msg = String.format("La cuenta nro: %s para el Cliente con el ID: %s Fue eliminada con exito", idCliente, idCuenta);
+        response.put("mensaje", msg);
+        response.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Añadir cuenta al cliente", responses = {
+            @ApiResponse(responseCode = "201", description = "Cuenta Agregada", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))),
+            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta / Bad Request", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class)))
+    })
+    @GetMapping("/addAccount/{idCliente}/{idCuenta}")
+    public ResponseEntity<Map<String, Object>> añadirCuenta(@PathVariable Long idCliente, @PathVariable Long idCuenta){
+        clienteService.añadirCuenta(idCliente, idCuenta);
+        Map<String, Object> response = new HashMap<>();
+        String msg = String.format("La cuenta nro: %s para el cliente con el ID: %s fue añadida con exito", idCliente, idCuenta);
+        response.put("mensaje", msg);
+        response.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.ok(response);
+    }
 }
