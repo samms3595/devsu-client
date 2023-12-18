@@ -42,24 +42,22 @@ http://localhost:9091/swagger-ui/index.html#/
 ```
 # Clientes API
 
-Esta colección de Postman proporciona un conjunto de servicios de API para la gestión de clientes bancarios. 
+Esta colección de Postman ofrece una amplia gama de servicios de API para la gestión integral de operaciones bancarias, cubriendo cuentas, movimientos y operaciones relacionadas con los clientes.
 
-### Gestión de Cuentas `/cuentas`
-La API ofrece un conjunto completo de servicios relacionados con la gestión de cuentas bancarias. Estos servicios incluyen:
+## Descripción General de los Servicios
 
-- **Crear Cuenta:** Permite a los usuarios abrir una nueva cuenta bancaria, proporcionando detalles como el ID del cliente, el tipo de cuenta (por ejemplo, ahorro, corriente), y el saldo inicial. Esto facilita la inclusión rápida de nuevos clientes en el sistema.
+### Gestión de Clientes `/clientes`
+La API facilita una gestión completa de los clientes, permitiendo realizar diversas operaciones cruciales:
 
-- **Obtener Información de Cuenta:** Los usuarios pueden consultar los detalles de una cuenta específica, como su saldo actual, tipo de cuenta y estado. Esta función es esencial para el seguimiento y la gestión de cuentas individuales.
+- **Crear Cliente:** Los usuarios pueden agregar un nuevo cliente al sistema, proporcionando datos esenciales como nombre, identificación y detalles de contacto. Este paso es fundamental para iniciar cualquier relación bancaria.
 
-- **Actualizar Detalles de la Cuenta:** Ofrece la posibilidad de actualizar la información de una cuenta existente, como cambiar el tipo de cuenta o modificar el saldo. Esta característica es crucial para mantener la precisión de los datos de la cuenta a lo largo del tiempo.
+- **Obtener Información del Cliente:** Permite acceder a los detalles específicos de un cliente, como su historial de transacciones, perfiles de cuentas y datos personales. Esta funcionalidad es clave para la gestión de relaciones con los clientes y la personalización de servicios.
 
-- **Eliminar Cuenta:** Permite eliminar una cuenta bancaria existente del sistema. Esta operación es importante para manejar cuentas inactivas o cerradas.
+- **Actualizar Detalles del Cliente:** Ofrece la capacidad de modificar la información existente de un cliente, lo cual es crucial para mantener actualizados los registros y responder a los cambios en las circunstancias del cliente.
 
-### Gestión de Movimientos `/movimientos`
-La API también incluye servicios para gestionar los movimientos de las cuentas, que abarcan:
+- **Eliminar Cliente:** Esta función permite eliminar los datos de un cliente del sistema, adecuada para casos en los que se termina la relación bancaria o en cumplimiento de políticas de privacidad y retención de datos.
 
-- **Registrar Movimientos:** Los usuarios pueden registrar nuevos movimientos en una cuenta, incluyendo tanto depósitos como retiros. Esto permite un seguimiento detallado de todas las transacciones realizadas en una cuenta, asegurando una contabilidad precisa.
 
-- **Consultar Movimientos:** Permite a los usuarios obtener una lista de todos los movimientos asociados con una cuenta o cliente específico. Esta funcionalidad es vital para el análisis financiero y la auditoría de cuentas.
+## Uso de la API
 
-- **Actualizar y Eliminar Movimientos:** Ofrece la capacidad de modificar o eliminar movimientos previamente registrados. Esto es esencial para corregir errores o ajustar registros de transacciones.
+Los endpoints están diseñados para ser claros y fáciles de usar, permitiendo a los usuarios y desarrolladores interactuar eficientemente con la API a través de Postman. Se recomienda revisar la documentación de cada endpoint para comprender mejor los parámetros requeridos y los formatos de las solicitudes.
