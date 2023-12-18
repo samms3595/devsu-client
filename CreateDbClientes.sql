@@ -1,5 +1,8 @@
+drop database clientes;
 create database clientes;
 use clientes;
+CREATE USER 'clientes'@'localhost' IDENTIFIED BY 'Devsu123.';
+
 create table cliente_cuentas (cliente_id bigint not null, cuentas bigint) engine=InnoDB;
 create table persona (dtype varchar(31) not null,
                       id bigint not null,
@@ -13,6 +16,5 @@ create table persona (dtype varchar(31) not null,
                       client_id bigint,
                       estado tinyint check (estado between 0 and 1),
                       password varchar(255), primary key (id)) engine=InnoDB;
-CREATE USER 'clientes'@'localhost' IDENTIFIED BY 'Devsu123.';
 GRANT ALL PRIVILEGES ON clientes TO 'clientes'@'localhost';
 FLUSH PRIVILEGES;

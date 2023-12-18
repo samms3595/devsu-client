@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  servicio-clientes:
+    build: .
+    ports:
+      - "9091:9091"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db-clientes:3306/clientes
+      SPRING_DATASOURCE_USERNAME: clientes
+      SPRING_DATASOURCE_PASSWORD: Devsu123.
+    networks:
+      - redFeing
+    depends_on:
+      - db-clientes
+  db-clientes:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: clientes
+      MYSQL_USER: clientes
+      MYSQL_PASSWORD: Devsu123.
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3309:3306"
+    networks:
+      - redFeing
+    volumes:
+      - ./CreateDbClientes.sql:/docker-entrypoint-initdb.d/CreateDbClientes.sql
+      - mysql-data-clientes:/var/lib/mysql
+networks:
+  redFeing:
+    external: true
+    driver: bridge
+volumes:
+  mysql-data-clientes:
