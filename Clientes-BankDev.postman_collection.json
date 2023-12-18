@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "ed1b0d83-fc1c-43ce-bd3f-792bd5b57c52",
+		"name": "Clientes-BankDev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21197084",
+		"_collection_link": "https://interstellar-rocket-590860.postman.co/workspace/Banesco-WorkSpace~d597b2dc-7da2-42df-8a62-c779e18ed9a9/collection/21197084-ed1b0d83-fc1c-43ce-bd3f-792bd5b57c52?action=share&source=collection_link&creator=21197084"
+	},
+	"item": [
+		{
+			"name": "Obtener Todos los Clientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerClientePorId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/cliente/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"cliente",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Cliente por el ClienteId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/cliente/client/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"cliente",
+						"client",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"edad\": 35,\r\n    \"estado\": 0,\r\n    \"genero\": \"MASCULINO\",\r\n    \"clientId\": 10486103751,\r\n    \"id\": 1,\r\n    \"dtype\": \"TipoEjemplo\",\r\n    \"apellidos\": \"Mendez Morelo\",\r\n    \"direccion\": \"Villasol Manzana H lote 10\",\r\n    \"identificacion\": \"1048610375\",\r\n    \"nombre\": \"Sebastian Antonio\",\r\n    \"password\": \"Devsu123.\",\r\n    \"telefono\": \"5551234567\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Cliente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"edad\": 35,\r\n    \"estado\": 0,\r\n    \"genero\": \"MASCULINO\",\r\n    \"clientId\": 12312312123,\r\n    \"id\": 1231231412412,\r\n    \"dtype\": \"TipoEjemplo\",\r\n    \"apellidos\": \"Pérez González\",\r\n    \"direccion\": \"Calle Falsa 123, Ciudad Ficticia\",\r\n    \"identificacion\": \"1048610375\",\r\n    \"nombre\": \"Juan\",\r\n    \"password\": \"Devsu123.\",\r\n    \"telefono\": \"5551234567\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar Cliente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/cliente/1231231412412",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"cliente",
+						"1231231412412"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Añadir Cuentas al Usuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/cliente/addAccount/123123123/1231231231",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"cliente",
+						"addAccount",
+						"123123123",
+						"1231231231"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Cuentas del Usuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/cliente/delAccount/123123123/12312",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"cliente",
+						"delAccount",
+						"123123123",
+						"12312"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
